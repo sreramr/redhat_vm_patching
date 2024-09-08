@@ -1,19 +1,19 @@
 - name: Ensure the target directory exists
   become: yes
   file:
-    path: /home/sreramrathnam/temp
+    path: /home/svcans01/temp
     state: directory
     mode: '0755'
     
 - name: Copy validate.sh script to target server
   become: yes
   copy:
-    src: /home/sreram/Ansible/suse/validate.sh
-    dest: /home/sreramrathnam/temp/validate.sh
+    src: /home/svcans01/Ansible/suse/validate.sh
+    dest: /home/svcans01/temp/validate.sh
     mode: '0755'  # Set execute permissions for the owner    
 
 - name: Run validate.sh script before patching and capture output
-  shell: /home/sreramrathnam/temp/validate.sh
+  shell: /home/svcans01/temp/validate.sh
   register: validate_status
   failed_when: validate_status.rc != 0
 
