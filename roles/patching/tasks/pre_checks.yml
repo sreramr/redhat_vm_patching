@@ -1,10 +1,5 @@
-- name: Ensure correct repositories are being used
-  command: zypper lr
-  register: repo_list
-  failed_when: repo_list.rc != 0
-
 - name: Check for all available updates
-  command: zypper lu
+  command: yum repolist all
   register: update_list
   failed_when: update_list.rc != 0
 

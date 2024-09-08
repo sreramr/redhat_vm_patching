@@ -1,3 +1,4 @@
+plnc0429pmulh01# cat validate.sh
 #!/bin/bash
 
 echo "date"

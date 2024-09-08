@@ -1,9 +1,7 @@
 - name: Apply all available patches
   become: yes
-  community.general.zypper:
-    name: '*'
-    state: latest
-    type: patch
+  command: yum update
+  register: yum_update_shown
 
 # New tasks to be added after applying patches
 - name: Reboot the server
