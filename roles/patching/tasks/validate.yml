@@ -1,5 +1,5 @@
 - name: Run validate.sh script before patching and capture output
-  shell: /home/sreramrathnam/temp/validate.sh
+  shell: /home/sreram/temp/validate.sh
   register: validate_status
   failed_when: validate_status.rc != 0
 
@@ -7,7 +7,7 @@
   become: yes
   copy:
     content: "{{ validate_status.stdout }}"
-    dest: /home/sreramrathnam/temp/pldfanc0429pmdfadulh01_after_30_07_2024.txt
+    dest: /home/sreram/temp/pldfanc0429pmdfadulh01_after_30_07_2024.txt
 
 - name: Debug output of validate.sh
   debug:
@@ -15,7 +15,7 @@
 
 - name: Compare configuration backups before and after patch
   become: yes
-  shell: sdiff /home/sreramrathnam/temp/pldfanc0429pmdfadulh01_before_30_07_2024.txt /home/sreramrathnam/temp/pldfanc0429pmdfadulh01_after_30_07_2024.txt > /home/sreramrathnam/temp/compare_result.txt
+  shell: sdiff /home/sreram/temp/pldfanc0429pmdfadulh01_before_30_07_2024.txt /home/sreram/temp/pldfanc0429pmdfadulh01_after_30_07_2024.txt > /home/sreramrathnam/temp/compare_result.txt
   register: sdiff_output
   failed_when: sdiff_output.rc not in [0, 1]
 

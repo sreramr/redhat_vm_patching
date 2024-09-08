@@ -1,27 +1,31 @@
 - name: Ensure the target directory exists
   become: yes
-  file:
-    path: /home/svcans01/temp
+  ansible.builtin.file:
+    path: /home/sreram/temp
     state: directory
     mode: '0755'
-    
+
 - name: Copy validate.sh script to target server
   become: yes
-  copy:
-    src: /home/svcans01/Ansible/suse/validate.sh
-    dest: /home/svcans01/temp/validate.sh
-    mode: '0755'  # Set execute permissions for the owner    
+  ansible.builtin.copy:
+    src: /home/sreram/Ansible/redhat/validate.sh
+    dest: /home/sreram/temp/validate.sh
+    mode: '0755'
+
+- name: Convert validate.sh to Unix format
+  become: yes
+  ansible.builtin.shell: sed -i 's/\r$//' /home/sreram/temp/validate.sh
 
 - name: Run validate.sh script before patching and capture output
-  shell: /home/svcans01/temp/validate.sh
+  ansible.builtin.shell: "/home/sreram/temp/validate.sh"
   register: validate_status
   failed_when: validate_status.rc != 0
 
 - name: Save validate.sh output to a text file
   become: yes
-  copy:
+  ansible.builtin.copy:
     content: "{{ validate_status.stdout }}"
-    dest: /home/sreramrathnam/temp/pldfanc0429pmdfadulh01_before_30_07_2024.txt
+    dest: /home/sreram/temp/pldfanc0429pmdfadulh01_before_30_07_2024.txt
 
 - name: Debug output of validate.sh
   debug:
@@ -35,10 +39,10 @@
     validate_certs: no
     datacenter: "Madurai"
     folder: "/VM-Automation/"
-    name: "suse01"
-    snapshot_name: "snap1"
+    name: "redhat01"
+    snapshot_name: "redhat01"
     description: "Snapshot before patching"
     state: present
   delegate_to: localhost
   vars:
-    ansible_python_interpreter: /home/sreram/Ansible/suse/lib/bin/python3
+    ansible_python_interpreter: /home/sreram/Ansible/redhat/lib/bin/python3
