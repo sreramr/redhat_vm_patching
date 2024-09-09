@@ -1,0 +1,39 @@
+- name: Compare two text files and export the differences
+  become: yes
+  shell: |
+    # Compare the two files and capture the differences
+    diff /home/sreram/temp/pldfanc0429pmdfadulh01_before_30_07_2024.txt /home/sreram/temp/pldfanc0429pmdfadulh01_after_30_07_2024.txt > /home/sreram/temp/diff_output.txt
+
+    # Extract the differences from the diff output
+    # grep -E '^[<>]' /home/sreram/temp/diff_output.txt > /home/sreram/temp/compare_result.txt
+
+    # Remove all files in the /home/sreram/temp directory except compare_result.txt
+    find /home/sreram/temp -maxdepth 1 -type f ! -name 'diff_output.txt' -exec rm -f {} \;
+  register: compare_files
+  failed_when: compare_files.rc != 0
+
+- name: Fetch the compare_result.txt file to the Ansible control machine
+  ansible.builtin.fetch:
+    src: /home/sreram/temp/diff_output.txt
+    dest: /home/sreram/Ansible/redhat/diff_output.txt
+    flat: yes
+  register: fetch_result
+
+- name: Debug fetch result
+  ansible.builtin.debug:
+    msg: "Fetch result: {{ fetch_result }}"
+
+- name: Display comparison result
+  become: yes
+  ansible.builtin.shell: cat /home/sreram/temp/diff_output.txt
+  
+- name: Compare configuration backups before and after patch
+  become: yes
+  shell: sdiff /home/sreram/temp/pldfanc0429pmdfadulh01_before_30_07_2024.txt /home/sreram/temp/pldfanc0429pmdfadulh01_after_30_07_2024.txt > /home/sreram/temp/compare_result.txt
+  register: sdiff_output
+  failed_when: sdiff_output.rc not in [0, 1]
+
+- name: Debug sdiff output
+  debug:
+    var: sdiff_output  
+  

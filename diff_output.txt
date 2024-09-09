@@ -1,0 +1,75 @@
+2c2
+< Sun Sep  8 04:42:36 PM IST 2024
+---
+> Sun Sep  8 04:43:56 PM IST 2024
+30c30
+< 55min,
+---
+> 1min,
+55,56c55
+< systemd-1 on /proc/sys/fs/binfmt_misc type autofs (rw,relatime,fd=29,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=19111)
+< hugetlbfs on /dev/hugepages type hugetlbfs (rw,relatime,seclabel,pagesize=2M)
+---
+> systemd-1 on /proc/sys/fs/binfmt_misc type autofs (rw,relatime,fd=29,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=19109)
+57a57
+> hugetlbfs on /dev/hugepages type hugetlbfs (rw,relatime,seclabel,pagesize=2M)
+60d59
+< fusectl on /sys/fs/fuse/connections type fusectl (rw,nosuid,nodev,noexec,relatime)
+61a61
+> fusectl on /sys/fs/fuse/connections type fusectl (rw,nosuid,nodev,noexec,relatime)
+110,111c110,111
+< ens192           1500    15398      0      0 0         25007      0      0      0 BMRU
+< lo              65536       24      0      0 0            24      0      0      0 LRU
+---
+> ens192           1500      211      0      0 0           260      0      0      0 BMRU
+> lo              65536       23      0      0 0            23      0      0      0 LRU
+116c116
+< sreram     58443   58428  0 16:42 pts/1    00:00:00 grep -i nimbus
+---
+> sreram      2497    2482  0 16:43 pts/0    00:00:00 grep -i nimbus
+131c131
+<        valid_lft 1187sec preferred_lft 1187sec
+---
+>        valid_lft 1746sec preferred_lft 1746sec
+435,449c435,443
+<      Active: active (exited) since Sun 2024-09-08 15:48:06 IST; 54min ago
+<     Process: 3031 ExecStart=/usr/bin/kdumpctl start (code=exited, status=0/SUCCESS)
+<    Main PID: 3031 (code=exited, status=0/SUCCESS)
+<         CPU: 17.091s
+< 
+< Sep 08 15:47:44 localhost.localdomain dracut[4649]: *** Install squash loader ***
+< Sep 08 15:47:45 localhost.localdomain dracut[4649]: *** Stripping files ***
+< Sep 08 15:47:45 localhost.localdomain dracut[4649]: *** Stripping files done ***
+< Sep 08 15:47:45 localhost.localdomain dracut[4649]: *** Squashing the files inside the initramfs ***
+< Sep 08 15:48:01 localhost.localdomain dracut[4649]: *** Squashing the files inside the initramfs done ***
+< Sep 08 15:48:01 localhost.localdomain dracut[4649]: *** Creating image file '/boot/initramfs-5.14.0-427.33.1.el9_4.x86_64kdump.img' ***
+< Sep 08 15:48:01 localhost.localdomain dracut[4649]: *** Creating initramfs image file '/boot/initramfs-5.14.0-427.33.1.el9_4.x86_64kdump.img' done ***
+< Sep 08 15:48:06 localhost.localdomain kdumpctl[3096]: kdump: kexec: loaded kdump kernel
+< Sep 08 15:48:06 localhost.localdomain kdumpctl[3096]: kdump: Starting kdump: [OK]
+< Sep 08 15:48:06 localhost.localdomain systemd[1]: Finished Crash recovery kernel arming.
+---
+>      Active: active (exited) since Sun 2024-09-08 16:43:05 IST; 51s ago
+>     Process: 1075 ExecStart=/usr/bin/kdumpctl start (code=exited, status=0/SUCCESS)
+>    Main PID: 1075 (code=exited, status=0/SUCCESS)
+>         CPU: 1.550s
+> 
+> Sep 08 16:43:02 localhost.localdomain systemd[1]: Starting Crash recovery kernel arming...
+> Sep 08 16:43:05 localhost.localdomain kdumpctl[1092]: kdump: kexec: loaded kdump kernel
+> Sep 08 16:43:05 localhost.localdomain kdumpctl[1092]: kdump: Starting kdump: [OK]
+> Sep 08 16:43:05 localhost.localdomain systemd[1]: Finished Crash recovery kernel arming.
+472,474c466
+< session-20.scope                           transient       -
+< session-8.scope                            transient       -
+< session-9.scope                            transient       -
+---
+> session-2.scope                            transient       -
+884c876
+< 429 unit files listed.
+---
+> 427 unit files listed.
+915c907
+< sreram     58492   58428  0 16:42 pts/1    00:00:00 grep -i postfix
+\ No newline at end of file
+---
+> sreram      2546    2482  0 16:43 pts/0    00:00:00 grep -i postfix
+\ No newline at end of file

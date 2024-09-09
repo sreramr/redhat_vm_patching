@@ -1,6 +1,6 @@
 - name: Apply all available patches
   become: yes
-  command: yum update
+  ansible.builtin.shell: yum update -y
   register: yum_update_shown
 
 # New tasks to be added after applying patches
