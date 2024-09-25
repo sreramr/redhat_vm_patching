@@ -1,5 +1,5 @@
 - name: Run validate.sh script before patching and capture output
-  shell: /home/sreram/temp/validate.sh
+  shell: /home/temp/validate.sh
   register: validate_status
   failed_when: validate_status.rc != 0
 
@@ -7,7 +7,7 @@
   become: yes
   copy:
     content: "{{ validate_status.stdout }}"
-    dest: /home/sreram/temp/pldfanc0429pmdfadulh01_after_30_07_2024.txt
+    dest: /home/temp/pldfanc0429pmdfadulh01_after_30_07_2024.txt
 
 - name: Debug output of validate.sh
   debug:
@@ -17,19 +17,19 @@
   become: yes
   shell: |
     # Compare the two files and capture the differences
-    diff /home/sreram/temp/pldfanc0429pmdfadulh01_before_30_07_2024.txt /home/sreram/temp/pldfanc0429pmdfadulh01_after_30_07_2024.txt > /home/sreram/temp/diff_output.txt
+    diff /home/temp/pldfanc0429pmdfadulh01_before_30_07_2024.txt /home/temp/pldfanc0429pmdfadulh01_after_30_07_2024.txt > /home/temp/diff_output.txt
 
     # Extract the differences from the diff output
-    # grep -E '^[<>]' /home/sreram/temp/diff_output.txt > /home/sreram/temp/compare_result.txt
+    # grep -E '^[<>]' /home/temp/diff_output.txt > /home/temp/compare_result.txt
 
     # Remove all files in the /home/sreram/temp directory except compare_result.txt
-    find /home/sreram/temp -maxdepth 1 -type f ! -name 'diff_output.txt' -exec rm -f {} \;
+    find /home/temp -maxdepth 1 -type f ! -name 'diff_output.txt' -exec rm -f {} \;
   register: compare_files
   failed_when: compare_files.rc != 0
 
 - name: Fetch the compare_result.txt file to the Ansible control machine
   ansible.builtin.fetch:
-    src: /home/sreram/temp/diff_output.txt
+    src: /home/temp/diff_output.txt
     dest: /home/sreram/Ansible/redhat/diff_output.txt
     flat: yes
   register: fetch_result
@@ -40,4 +40,4 @@
 
 - name: Display comparison result
   become: yes
-  ansible.builtin.shell: cat /home/sreram/temp/diff_output.txt
+  ansible.builtin.shell: cat /home/temp/diff_output.txt
